@@ -1,42 +1,31 @@
-pipeline{
-        agent any
-		parameters {
-  		string defaultValue: 'DEV', name: 'ENV'
+pipeline {
+	agent any
+	parameters {
+		choice(name: 'ENVIRONMENT', choices: ['QA','UAT'], description: 'Pick Environment value')
 	}
-	
-	triggers {
-  		pollSCM '* * * * *'
-	}
-
-
-        stages {
-                stage(checkout){
-                        steps{
-                                git 'https://github.com/Rohit-457/testrepo-1.git'
-                        }
-                }
-                stage( build){
-                        steps{
-                        sh 'mvn install'
-                        }
-                }
-                stage(deploy){
-                        steps{
-                                sh 'cp target/testrepo-1.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps'
-                        }
-                }
+	stages {
+	    stage('Checkout') {
+	        steps {
+			checkout scm			       
+		      }}
+		stage('Build') {
+	           steps {
+			  sh '/home/swapnil/Documents/DevOps-Software/apache-maven-3.9.4/bin/mvn install'
+	                 }}
 		stage('Deployment'){
-		    	steps {
+		    steps {
 			script {
-			 if ( env.ENV == 'QA' ){
-        	sh 'cp target/PIPELINE.war /home/swapnil/Documents/DevOps-Software/apache-tomcat-9.0.79/webapps'
-        	echo "deployment has been COMPLETED on QA!"
+			 if ( "${env.ENVIRONMENT}" == 'QA' ){
+        	sh 'cp target/CICD.war /home/swapnil/Documents/DevOps-Software/apache-tomcat-9.0.79/webapps'
+        	echo "deployment has been done on QA!"
 			 }
-			else ( env.ENV == 'UAT' ){
-    		sh 'cp target/PIPELINE.war /home/swapnil/Documents/DevOps-Software/apache-tomcat-9.0.79/webapps'
+			elif ( "${env.ENVIRONMENT}" == 'UAT' ){
+    		sh 'cp target/CICD.war /home/swapnil/Documents/DevOps-Software/apache-tomcat-9.0.79/webapps'
     		echo "deployment has been done on UAT!"
 			}
-
-        }
-}}
-
+			echo "deployment has been done!"
+			fi
+			
+			}}}	
+}
+}
