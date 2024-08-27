@@ -6,11 +6,11 @@ pipeline {
 	stages {
 	    stage('Checkout') {
 	        steps {
-			checkout scm			       
+			git 'https://github.com/Rohit-457/testrepo-1.git'		       
 		      }}
 		stage('Build') {
 	           steps {
-			  sh '/home/rohit/Documents/devops/apache-tomcat-9.0.93/bin/mvn install'
+			  sh '/mvn install'
 	                 }}
 		stage('Deployment'){
 		    steps {
