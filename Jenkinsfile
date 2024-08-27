@@ -10,7 +10,7 @@ pipeline {
 		      }}
 		stage('Build') {
 	           steps {
-			  sh '/home/swapnil/Documents/DevOps-Software/apache-maven-3.9.4/bin/mvn install'
+			  sh '/home/rohit/Documents/devops/apache-tomcat-9.0.93/bin/mvn install'
 	                 }}
 		stage('Deployment'){
 		    steps {
