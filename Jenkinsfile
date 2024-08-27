@@ -1,13 +1,13 @@
-pipeline {
-	agent any 
+pipipeline {
+	agent any
 	
 	parameters {
-  		string defaultValue: 'DEV', name: 'ENV'
+		choice(name: 'ENVIRONMENT', choices: ['QA','UAT'], description: 'Pick Environment value')
 	}
 	stages {
 	    stage('Checkout') {
 	        steps {
-			checkout scm			       
+			git 'https://github.com/Rohit-457/testrepo-1.git'			       
 		      }}
 		stage('Build') {
 	           steps {
@@ -16,13 +16,16 @@ pipeline {
 		stage('Deployment'){
 		    steps {
 			script {
-			 if ( env.ENV == 'QA' ){
-        	sh 'cp target/testrepo-1 /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps'
-        	echo "deployment has been COMPLETED on QA!"
+			 if ( "${env.ENVIRONMENT}" == 'QA' ){
+        	sh 'cp target/testrepo.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps
+        	echo "deployment has been done on QA!"
 			 }
-			else ( env.ENV == 'UAT' ){
-    		sh 'cp target/testrepo-1.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps'
+			elif ( "${env.ENVIRONMENT}" == 'UAT' ){
+    		sh 'cp target/testrepo.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps'
     		echo "deployment has been done on UAT!"
 			}
+			echo "deployment has been done!"
+			fi
+			
 			}}}	
 }}
