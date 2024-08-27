@@ -17,11 +17,11 @@ pipeline {
 		    steps {
 			script {
 			 if ( env.ENV == 'QA' ){
-        	sh 'cp target/testrepo-1 /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps
+        	sh 'cp target/testrepo-1 /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps'
         	echo "deployment has been COMPLETED on QA!"
 			 }
 			else ( env.ENV == 'UAT' ){
-    		sh 'cp target/testrepo-1.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps
+    		sh 'cp target/testrepo-1.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps'
     		echo "deployment has been done on UAT!"
 			}
 			}}}	
