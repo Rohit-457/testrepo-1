@@ -10,7 +10,7 @@ pipeline{
                                 git 'https://github.com/Rohit-457/testrepo-1.git'
                         }
                 }
-                stage(build){
+                stage(compil and build){
                         steps{
                         sh 'mvn install'
                         }
