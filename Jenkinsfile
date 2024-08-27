@@ -17,7 +17,7 @@ pipipeline {
 		    steps {
 			script {
 			 if ( "${env.ENVIRONMENT}" == 'QA' ){
-        	sh 'cp target/testrepo.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps
+        	sh 'cp target/testrepo.war /home/rohit/Documents/devops/apache-tomcat-9.0.93/webapps'
         	echo "deployment has been done on QA!"
 			 }
 			elif ( "${env.ENVIRONMENT}" == 'UAT' ){
